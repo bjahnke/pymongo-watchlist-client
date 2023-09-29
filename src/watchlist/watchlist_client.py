@@ -10,8 +10,7 @@ class MongoWatchlistClient:
     def __init__(self, api_key):
         self._api_key = api_key
         self._url = (
-            "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/"
-            "v2.0/app/data-vbrot/service/update_watchlist/incoming_webhook/{endpoint}"
+            "https://us-east-1.aws.data.mongodb-api.com/app/data-vbrot/endpoint/{endpoint}"
         )
 
     def update_watchlist(self, watchlist: WatchlistType, db: str):
