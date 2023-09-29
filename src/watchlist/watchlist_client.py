@@ -7,7 +7,7 @@ WatchlistType = typing.List[typing.Dict]
 
 
 class MongoWatchlistClient:
-    def __int__(self, api_key):
+    def __init__(self, api_key):
         self._api_key = api_key
         self._url = (
             "https://us-east-1.aws.webhooks.mongodb-realm.com/api/client/"
