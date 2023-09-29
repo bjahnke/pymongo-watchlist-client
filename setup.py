@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='pymongo-watchlist-client',
     version='0.0.0.1',
-    packages=[''],
+    packages=['src/watchlist'],
     url='',
     license='',
     author='bjahnke',
