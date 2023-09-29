@@ -1,5 +1,9 @@
+import typing
+
 import requests
 import json
+
+WatchlistType = typing.List[typing.Dict]
 
 
 class MongoWatchlistClient:
@@ -10,7 +14,7 @@ class MongoWatchlistClient:
             "v2.0/app/data-vbrot/service/update_watchlist/incoming_webhook/{endpoint}"
         )
 
-    def update_watchlist(self, watchlist, db):
+    def update_watchlist(self, watchlist: WatchlistType, db: str):
         """
         Update the watchlist.
         :param db:
@@ -25,7 +29,7 @@ class MongoWatchlistClient:
         )
         return res.json()
 
-    def get_latest(self, db):
+    def get_latest(self, db: str):
         """
         Get the latest watchlist.
         :param db:
@@ -37,3 +41,25 @@ class MongoWatchlistClient:
             headers={'Content-Type': 'application/json', 'apiKey': self._api_key}
         )
         return res.json()
+
+    def add_records(self, watchlist_items: WatchlistType, db: str):
+        """
+        Add a records to the watchlist.
+        :param watchlist_items:
+        :param db:
+        :return:
+        """
+        current_watchlist = self.get_latest(db).json()['watchlist']
+        current_watchlist.extend(watchlist_items)
+        return self.update_watchlist(current_watchlist, db)
+
+    def remove_records(self, watchlist_items: WatchlistType, db: str):
+        """
+        Remove records from the watchlist.
+        :param watchlist_items:
+        :param db:
+        :return:
+        """
+        current_watchlist = self.get_latest(db).json()['watchlist']
+        current_watchlist = [item for item in current_watchlist if item not in watchlist_items]
+        return self.update_watchlist(current_watchlist, db)
