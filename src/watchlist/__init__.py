@@ -1,1 +1,1 @@
-from watchlist_client import *
+from src.watchlist.watchlist_client import *
